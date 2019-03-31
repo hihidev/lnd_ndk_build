@@ -1,4 +1,4 @@
-Build status: [![Build Status](https://travis-ci.org/hihidev/lnd_ndk_build_svg?branch=master)](https://travis-ci.org/hihidev/lnd_ndk_build)
+Build status: [![Build Status](https://travis-ci.org/hihidev/lnd_ndk_build.svg?branch=master)](https://travis-ci.org/hihidev/lnd_ndk_build)
 
 # lnd_ndk_build
 

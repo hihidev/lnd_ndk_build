@@ -16,7 +16,6 @@ wget https://github.com/upx/upx/releases/download/v3.95/upx-3.95-i386_linux.tar.
 echo "962e29fc01490a2a2da25a170f28a5d5933f3d7a695e8b2807c3eab1a4b66d05  upx-3.95-i386_linux.tar.xz" | shasum -a 256 --check
 
 tar -xJf upx-3.95-i386_linux.tar.xz
-export PATH=$PATH:/opt/upx-3.95-i386_linux
 
 curl -sSO https://dl.google.com/android/repository/${NDK_FILENAME} &> /dev/null
 echo "${sha256_file}  ${NDK_FILENAME}" | shasum -a 256 --check

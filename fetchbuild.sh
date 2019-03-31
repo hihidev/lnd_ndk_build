@@ -18,6 +18,7 @@ else
 fi
 
 export PATH=/opt/android-ndk-r19b/toolchains/llvm/prebuilt/linux-x86_64/bin:${PATH}
+export PATH=$PATH:/opt/upx-3.95-i386_linux
 export NDK_CC=${target_host}21-clang
 
 sed -i -e "s~GOINSTALL := GO111MODULE=on go install -v~GOINSTALL := GO111MODULE=on CGO_ENABLED=1 CC=$NDK_CC GOOS=android ${goarmarch} go build -buildmode=pie -v~g" Makefile
