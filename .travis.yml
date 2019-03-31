@@ -1,0 +1,18 @@
+dist: xenial
+os: linux
+language: minimal
+sudo: required
+services:
+  - docker
+env:
+  global:
+    - REPO=https://github.com/lightningnetwork/lnd
+    - COMMIT=d2186cc9da29853091175189268b073f49586cf0
+    - TARGETHOST=aarch64-linux-android
+    - BITS=64
+  matrix:
+    - UNUSED=true
+    - TARGETHOST=armv7a-linux-androideabi BITS=32
+
+script:
+  - docker run -v $PWD:/repo golang:1.12 /bin/bash -c "/repo/stretch_deps.sh && /repo/fetchbuild.sh $REPO $COMMIT $TARGETHOST $BITS /repo" 
