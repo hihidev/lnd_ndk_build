@@ -1,0 +1,35 @@
+--- /home/ubuntu/go/pkg/mod/github.com/btcsuite/btcwallet@v0.0.0-20190327034548-8b90263a6190/wallet/wallet.go	2019-04-02 02:41:32.312170000 +0100
++++ /home/ubuntu/mywallet.go	2019-04-02 02:49:07.127464000 +0100
+@@ -7,6 +7,7 @@
+ 
+ import (
+ 	"bytes"
++	"encoding/binary"
+ 	"encoding/hex"
+ 	"errors"
+ 	"fmt"
+@@ -558,7 +559,23 @@
+ 	// use to signal that we've found it and no longer need to keep scanning
+ 	// the chain.
+ 	errDone := errors.New("done")
+-	err = w.scanChain(w.Manager.SyncedTo().Height, func(height int32,
++	syncedToHeight := w.Manager.SyncedTo().Height	
++	if syncedToHeight == 0 {
++		chainClient, err := w.requireChainClient()
++		if err != nil {
++			return nil, err
++		}
++		_, bestHeight, err := chainClient.GetBestBlock()
++		if err != nil {
++			return nil, err
++		}
++		syncedToHeight = bestHeight - 10000
++		bucket := ns.NestedReadWriteBucket([]byte("sync"))
++		h := make([]byte, 4)
++		binary.BigEndian.PutUint32(h, uint32(syncedToHeight-1))
++		bucket.Put(h, make([]byte, 32))
++	}		
++	err = w.scanChain(syncedToHeight, func(height int32,
+ 		hash *chainhash.Hash, header *wire.BlockHeader) error {
+ 
+ 		if header.Timestamp.After(birthday) {

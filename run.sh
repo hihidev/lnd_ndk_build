@@ -2,7 +2,7 @@
 set -e
 
 REPO_CORE=https://github.com/lightningnetwork/lnd
-COMMIT_CORE=d2186cc9da29853091175189268b073f49586cf0
+COMMIT_CORE=893cff60c
 
 if [ "$root_dir" == '/repo' ]; then
 	repos="${REPO_CORE}_${COMMIT_CORE}"

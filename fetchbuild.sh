@@ -11,6 +11,14 @@ git clone $repo lnd
 cd lnd
 git checkout $commit
 
+git clone http://github.com/btcsuite/btcwallet btcwallet
+cd btcwallet
+git reset --hard 8b90263a6190
+patch wallet/wallet.go $root_dir/btcwallet.patch
+cd ..
+echo "replace github.com/btcsuite/btcwallet => ./btcwallet" >> go.mod
+
+
 if [ "$bits" -eq "64" ]; then
 	goarmarch="GOARCH=arm64"
 else
@@ -27,8 +35,8 @@ sed -i -e 's~LDFLAGS := -ldflags "~LDFLAGS := -ldflags "-s -w ~g' Makefile
 tags=linux make
 tags=linux make install
 
-upx -9 -q ./lnd
-upx -9 -q ./lncli
+#upx -9 -q ./lnd
+#upx -9 -q ./lncli
 
 if [ "$root_dir" == '/repo' ]; then
 	repo_name=$(basename $(dirname ${repo}))
