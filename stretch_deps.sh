@@ -7,7 +7,7 @@ sha256_file=0fbb1645d0f1de4dde90a4ff79ca5ec4899c835e729d692f433fda501623257a
 
 apt-get -yqq update &> /dev/null
 apt-get -yqq upgrade &> /dev/null
-apt-get install -y unzip wget xz-utils
+apt-get install -y unzip wget xz-utils patch
 
 mkdir -p /opt
 cd /opt
